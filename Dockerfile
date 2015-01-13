@@ -10,7 +10,10 @@ RUN cat /tmp/ubuntu-mirrors /etc/apt/sources.list > /tmp/sources.list && mv /tmp
 
 # Install reqd deps
 RUN apt-get update
-RUN apt-get install -y nagios3 nagios-plugins nagios-nrpe-plugin
+RUN apt-get install -y \
+  nagios3 \
+  nagios-plugins \
+  nagios-nrpe-plugin
 
 # Configure apache to start on boot
 ADD apache.service /etc/service/apache/run
