@@ -37,8 +37,14 @@ RUN rm -rf /var/lib/nagios3/rw
 RUN mkdir /var/lib/nagios3/rw && chown nagios:www-data /var/lib/nagios3/rw && chmod 750 /var/lib/nagios3/rw
 RUN mkfifo /var/lib/nagios3/rw/nagios.cmd && chown nagios:nagios /var/lib/nagios3/rw/nagios.cmd && chmod 660 /var/lib/nagios3/rw/nagios.cmd
 
+# Create user config dir in case nothing is mounted there
+RUN mkdir -p $NAGIOS_USER_CONF_DIR
 # Enable user config to be mounted into /opt/nagios/userconf
 RUN echo "cfg_dir=${NAGIOS_USER_CONF_DIR}" >> /etc/nagios3/nagios.cfg
+
+# Clean up
+RUN apt-get clean
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80
 CMD ["/sbin/my_init"]
