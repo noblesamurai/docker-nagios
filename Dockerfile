@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.15
+FROM ubuntu:latest
 
 ENV NAGIOSADMIN_USER nagiosadmin
 ENV NAGIOSADMIN_PASS nagios
@@ -13,15 +13,11 @@ RUN apt-get update
 RUN apt-get install -y \
   nagios3 \
   nagios-plugins \
-  nagios-nrpe-plugin
+  nagios-nrpe-plugin \
+  supervisor
 
 # Configure apache to start on boot
-ADD apache.service /etc/service/apache/run
-RUN chmod u+x /etc/service/apache/run
-
-# Configure nagios to start on boot
-ADD nagios.service /etc/service/nagios/run
-RUN chmod u+x /etc/service/nagios/run
+COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set the username/password
 RUN mkdir -p /etc/my_init.d
@@ -47,4 +43,4 @@ RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 80
-CMD ["/sbin/my_init"]
+CMD ["/usr/bin/supervisord"]
