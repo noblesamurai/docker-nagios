@@ -16,7 +16,7 @@ RUN apt-get install -y \
   nagios-nrpe-plugin \
   supervisor
 
-# Configure apache to start on boot
+# Configure apache and the nagios daemon to start on boot
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 # Set the username/password
