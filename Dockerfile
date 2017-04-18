@@ -1,5 +1,6 @@
 FROM ubuntu:latest
 
+ENV DEBIAN_FRONTEND noninteractive
 ENV NAGIOSADMIN_USER nagiosadmin
 ENV NAGIOSADMIN_PASS nagios
 ENV NAGIOS_USER_CONF_DIR /opt/nagios/userconf
