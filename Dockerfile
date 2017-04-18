@@ -14,7 +14,8 @@ RUN apt-get install -y \
   nagios3 \
   nagios-plugins \
   nagios-nrpe-plugin \
-  supervisor
+  supervisor \
+  curl
 
 # Configure apache and the nagios daemon to start on boot
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
